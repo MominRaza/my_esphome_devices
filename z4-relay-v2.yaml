@@ -83,6 +83,7 @@ switch:
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
     sorting_group_id: sorting_group_misc
+
 - platform: gpio
   pin:
     number: GPIO23
@@ -107,6 +108,7 @@ switch:
     inverted: True
   id: fan_speed_4
   restore_mode: RESTORE_DEFAULT_OFF
+
 - platform: template
   name: "Office Fan Switch"
   id: office_fan
@@ -172,6 +174,7 @@ binary_sensor:
           script.is_running: turn_off_led_timer
         else:
         - script.execute: turn_off_led_timer
+
 - platform: gpio
   pin:
     number: GPIO34
@@ -180,6 +183,8 @@ binary_sensor:
       # pullup: True
     inverted: True
   id: office_light_switch
+  filters:
+  - delayed_on_off: 100ms
   on_press:
     then:
     - switch.turn_on: office_light
@@ -194,6 +199,8 @@ binary_sensor:
       # pullup: True
     inverted: True
   id: workbench_light_switch
+  filters:
+  - delayed_on_off: 100ms
   on_press:
     then:
     - switch.turn_on: workbench_light
@@ -208,6 +215,8 @@ binary_sensor:
       pullup: True
     inverted: True
   id: bathroom_light_switch
+  filters:
+  - delayed_on_off: 100ms
   on_press:
     then:
     - switch.turn_on: bathroom_light
@@ -222,12 +231,15 @@ binary_sensor:
       pullup: True
     inverted: True
   id: socket_switch
+  filters:
+  - delayed_on_off: 100ms
   on_press:
     then:
     - switch.turn_on: wall_socket
   on_release:
     then:
     - switch.turn_off: wall_socket
+
 - platform: gpio
   pin:
     number: GPIO25

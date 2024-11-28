@@ -59,6 +59,7 @@ switch:
     number: GPIO17
     inverted: True
   name: "Workbench Light"
+  id: workbench_light
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
     sorting_group_id: sorting_group_lights
@@ -68,6 +69,7 @@ switch:
     number: GPIO16
     inverted: True
   name: "Bathroom Light"
+  id: bathroom_light
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
     sorting_group_id: sorting_group_lights
@@ -77,6 +79,7 @@ switch:
     number: GPIO4
     inverted: True
   name: "Socket"
+  id: wall_socket
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
     sorting_group_id: sorting_group_misc
@@ -149,7 +152,7 @@ sensor:
 
 binary_sensor:
 - platform: gpio
-  pin: GPIO25
+  pin: GPIO26
   id: motion_sensor
   device_class: motion
   on_press:
@@ -171,7 +174,80 @@ binary_sensor:
         - script.execute: turn_off_led_timer
 - platform: gpio
   pin:
+    number: GPIO34
+    mode:
+      input: True
+      # pullup: True
+    inverted: True
+  id: office_light_switch
+  on_press:
+    then:
+    - switch.turn_on: office_light
+  on_release:
+    then:
+    - switch.turn_off: office_light
+- platform: gpio
+  pin:
+    number: GPIO35
+    mode:
+      input: True
+      # pullup: True
+    inverted: True
+  id: workbench_light_switch
+  on_press:
+    then:
+    - switch.turn_on: workbench_light
+  on_release:
+    then:
+    - switch.turn_off: workbench_light
+- platform: gpio
+  pin:
+    number: GPIO32
+    mode:
+      input: True
+      pullup: True
+    inverted: True
+  id: bathroom_light_switch
+  on_press:
+    then:
+    - switch.turn_on: bathroom_light
+  on_release:
+    then:
+    - switch.turn_off: bathroom_light
+- platform: gpio
+  pin:
     number: GPIO33
+    mode:
+      input: True
+      pullup: True
+    inverted: True
+  id: socket_switch
+  on_press:
+    then:
+    - switch.turn_on: wall_socket
+  on_release:
+    then:
+    - switch.turn_off: wall_socket
+- platform: gpio
+  pin:
+    number: GPIO25
+    mode:
+      input: True
+      pullup: True
+    inverted: True
+  id: fan_switch
+  filters:
+  - delayed_on_off: 100ms
+  on_press:
+    then:
+    - switch.turn_on: office_fan
+  on_release:
+    then:
+    - switch.turn_off: office_fan
+
+- platform: gpio
+  pin:
+    number: GPIO27
     mode:
       input: True
       pullup: True
@@ -191,7 +267,7 @@ binary_sensor:
         value: 0
 - platform: gpio
   pin:
-    number: GPIO26
+    number: GPIO14
     mode:
       input: True
       pullup: True
@@ -206,7 +282,7 @@ binary_sensor:
         value: 2
 - platform: gpio
   pin:
-    number: GPIO27
+    number: GPIO12
     mode:
       input: True
       pullup: True
@@ -221,7 +297,7 @@ binary_sensor:
         value: 3
 - platform: gpio
   pin:
-    number: GPIO14
+    number: GPIO13
     mode:
       input: True
       pullup: True

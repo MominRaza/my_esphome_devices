@@ -40,28 +40,24 @@ switch:
     pin:
       number: GPIO23
       inverted: True
-    name: "Fan speed 1"
     id: fan_speed_1
     restore_mode: RESTORE_DEFAULT_OFF
   - platform: gpio
     pin:
      number: GPIO22
      inverted: True
-    name: "Fan speed 2"
     id: fan_speed_2
     restore_mode: RESTORE_DEFAULT_OFF
   - platform: gpio
     pin:
       number: GPIO21
       inverted: True
-    name: "Fan speed 3"
     id: fan_speed_3
     restore_mode: RESTORE_DEFAULT_OFF
   - platform: gpio
     pin:
       number: GPIO19
       inverted: True
-    name: "Fan speed 4"
     id: fan_speed_4
     restore_mode: RESTORE_DEFAULT_OFF
 
@@ -162,30 +158,24 @@ binary_sensor:
             - script.execute: turn_off_led_timer
   - platform: gpio
     pin:
-      number: GPIO32
-      mode:
-        input: True
-        pullup: True
-      inverted: True
-    name: "Fan Speed 0 Button"
-    on_press: 
-      then:
-        - output.set_level:
-            id: custom_fan
-            level: 0.0
-  - platform: gpio
-    pin:
       number: GPIO33
       mode:
         input: True
         pullup: True
       inverted: True
     name: "Fan Speed 1 Button"
+    filters:
+      - delayed_on_off: 100ms
     on_press: 
       then:
         - output.set_level:
             id: custom_fan
             level: 0.25
+    on_release: 
+      then:
+        - output.set_level:
+            id: custom_fan
+            level: 0
   - platform: gpio
     pin:
       number: GPIO26
@@ -194,6 +184,8 @@ binary_sensor:
         pullup: True
       inverted: True
     name: "Fan Speed 2 Button"
+    filters:
+      - delayed_on_off: 100ms
     on_press:
       then:
         - output.set_level:
@@ -207,6 +199,8 @@ binary_sensor:
         pullup: True
       inverted: True
     name: "Fan Speed 3 Button"
+    filters:
+      - delayed_on_off: 100ms
     on_press:
       then:
         - output.set_level:
@@ -220,11 +214,18 @@ binary_sensor:
         pullup: True
       inverted: True
     name: "Fan Speed 4 Button"
+    filters:
+      - delayed_on_off: 100ms
     on_press:
       then:
         - output.set_level:
             id: custom_fan
             level: 1.0
+    on_release: 
+      then:
+        - output.set_level:
+            id: custom_fan
+            level: 0
 
 script:
   - id: turn_off_led_timer

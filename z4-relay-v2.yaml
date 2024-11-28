@@ -140,6 +140,56 @@ binary_sensor:
             script.is_running: turn_off_led_timer
           else:
             - script.execute: turn_off_led_timer
+  - platform: gpio
+    pin:
+      number: GPIO36
+      mode: input
+    name: "Fan Speed 0 Button"
+    on_press: 
+      then:
+        - output.set_level:
+            id: custom_fan
+            level: 0.0
+  - platform: gpio
+    pin:
+      number: GPIO39
+      mode: input
+    name: "Fan Speed 1 Button"
+    on_press: 
+      then:
+        - output.set_level:
+            id: custom_fan
+            level: 0.25
+  - platform: gpio
+    pin:
+      number: GPIO34
+      mode: input
+    name: "Fan Speed 2 Button"
+    on_press:
+      then:
+        - output.set_level:
+            id: custom_fan
+            level: 0.5
+  - platform: gpio
+    pin:
+      number: GPIO35
+      mode: input
+    name: "Fan Speed 3 Button"
+    on_press:
+      then:
+        - output.set_level:
+            id: custom_fan
+            level: 0.75
+  - platform: gpio
+    pin:
+      number: GPIO32
+      mode: input
+    name: "Fan Speed 4 Button"
+    on_press:
+      then:
+        - output.set_level:
+            id: custom_fan
+            level: 1.0
 
 script:
   - id: turn_off_led_timer

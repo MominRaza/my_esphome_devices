@@ -37,29 +37,33 @@ switch:
     id: user_led
     restore_mode: RESTORE_DEFAULT_OFF
   - platform: gpio
-    pin: GPIO23
+    pin:
+      number: GPIO23
+      inverted: True
     name: "Fan speed 1"
     id: fan_speed_1
     restore_mode: RESTORE_DEFAULT_OFF
-    interlock: &interlock_group [fan_speed_1, fan_speed_2, fan_speed_3, fan_speed_4]
   - platform: gpio
-    pin: GPIO22
+    pin:
+     number: GPIO22
+     inverted: True
     name: "Fan speed 2"
     id: fan_speed_2
     restore_mode: RESTORE_DEFAULT_OFF
-    interlock: *interlock_group
   - platform: gpio
-    pin: GPIO21
+    pin:
+      number: GPIO21
+      inverted: True
     name: "Fan speed 3"
     id: fan_speed_3
     restore_mode: RESTORE_DEFAULT_OFF
-    interlock: *interlock_group
   - platform: gpio
-    pin: GPIO19
+    pin:
+      number: GPIO19
+      inverted: True
     name: "Fan speed 4"
     id: fan_speed_4
     restore_mode: RESTORE_DEFAULT_OFF
-    interlock: *interlock_group
 
 output:
   - platform: template
@@ -78,23 +82,39 @@ output:
           condition:
             lambda: return ((state > 0) && (state <= 0.25));
           then:
+            - switch.turn_off: fan_speed_2
+            - switch.turn_off: fan_speed_3
+            - switch.turn_off: fan_speed_4
+
             - switch.turn_on: fan_speed_1
             
       - if:
           condition:
             lambda: return ((state > 0.25) && (state <= 0.5));
           then:
+            - switch.turn_off: fan_speed_1
+            - switch.turn_off: fan_speed_3
+            - switch.turn_off: fan_speed_4
+
             - switch.turn_on: fan_speed_2
 
       - if:
           condition:
             lambda: return ((state > 0.5) && (state <= 0.75));
           then:
+            - switch.turn_off: fan_speed_1
+            - switch.turn_off: fan_speed_4
+
+            - switch.turn_on: fan_speed_2
             - switch.turn_on: fan_speed_3
       - if:
           condition:
             lambda: return ((state > 0.75));
           then:
+            - switch.turn_off: fan_speed_1
+            - switch.turn_off: fan_speed_2
+            - switch.turn_off: fan_speed_3
+            
             - switch.turn_on: fan_speed_4
 
 fan:

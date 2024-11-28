@@ -326,41 +326,41 @@ script:
       - delay: 120s
       - switch.turn_off: office_light
 - id: change_fan_speed
-  then: 
-    - lambda: |-
-        if (id(office_fan).state) {
-          if (id(fan_speed).state == 0) {
-            id(fan_speed_1).turn_off();
-            id(fan_speed_2).turn_off();
-            id(fan_speed_3).turn_off();
-            id(fan_speed_4).turn_off();
-          } else if (id(fan_speed).state == 1) {
-            id(fan_speed_2).turn_off();
-            id(fan_speed_3).turn_off();
-            id(fan_speed_4).turn_off();
-            id(fan_speed_1).turn_on();
-          } else if (id(fan_speed).state == 2) {
-            id(fan_speed_1).turn_off();
-            id(fan_speed_3).turn_off();
-            id(fan_speed_4).turn_off();
-            id(fan_speed_2).turn_on();
-          } else if (id(fan_speed).state == 3) {
-            id(fan_speed_1).turn_off();
-            id(fan_speed_4).turn_off();
-            id(fan_speed_2).turn_on();
-            id(fan_speed_3).turn_on();
-          } else if (id(fan_speed).state == 4) {
-            id(fan_speed_1).turn_off();
-            id(fan_speed_2).turn_off();
-            id(fan_speed_3).turn_off();
-            id(fan_speed_4).turn_on();
-          }
-        } else {
+  then:
+  - lambda: |-
+      if (id(office_fan).state) {
+        if (id(fan_speed).state == 0) {
           id(fan_speed_1).turn_off();
           id(fan_speed_2).turn_off();
           id(fan_speed_3).turn_off();
           id(fan_speed_4).turn_off();
+        } else if (id(fan_speed).state == 1) {
+          id(fan_speed_2).turn_off();
+          id(fan_speed_3).turn_off();
+          id(fan_speed_4).turn_off();
+          id(fan_speed_1).turn_on();
+        } else if (id(fan_speed).state == 2) {
+          id(fan_speed_1).turn_off();
+          id(fan_speed_3).turn_off();
+          id(fan_speed_4).turn_off();
+          id(fan_speed_2).turn_on();
+        } else if (id(fan_speed).state == 3) {
+          id(fan_speed_1).turn_off();
+          id(fan_speed_4).turn_off();
+          id(fan_speed_2).turn_on();
+          id(fan_speed_3).turn_on();
+        } else if (id(fan_speed).state == 4) {
+          id(fan_speed_1).turn_off();
+          id(fan_speed_2).turn_off();
+          id(fan_speed_3).turn_off();
+          id(fan_speed_4).turn_on();
         }
+      } else {
+        id(fan_speed_1).turn_off();
+        id(fan_speed_2).turn_off();
+        id(fan_speed_3).turn_off();
+        id(fan_speed_4).turn_off();
+      }
 
 number:
 - platform: template
@@ -379,3 +379,31 @@ number:
   on_value:
     then:
     - script.execute: change_fan_speed
+
+# Pin mapping
+
+# GPIO23 - D23 - Fan Speed 1
+# GPIO22 - D22 - Fan Speed 2
+# GPIO21 - D21 - Fan Speed 3
+# GPIO19 - D19 - Fan Speed 4
+
+# GPIO18 - D18 - DHT11
+
+# GPIO5 - D5 - Office Light
+# GPIO17 - TX2 - Workbench Light
+# GPIO16 - RX2 - Bathroom Light
+# GPIO4 - D4 - Wall Socket
+
+# GPIO34 - D34 - Office Light Switch
+# GPIO35 - D35 - Workbench Light Switch
+# GPIO32 - D32 - Bathroom Light Switch
+# GPIO33 - D33 - Wall Socket Switch
+
+# GPIO25 - D25 - Fan Switch
+
+# GPIO26 - D26 - Motion Sensor
+
+# GPIO27 - D27 - Fan Speed Rotary 1
+# GPIO14 - D14 - Fan Speed Rotary 2
+# GPIO12 - D12 - Fan Speed Rotary 3
+# GPIO13 - D13 - Fan Speed Rotary 4

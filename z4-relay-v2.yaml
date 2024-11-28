@@ -29,6 +29,19 @@ web_server:
     password: !secret web_server_password
   ota: false
   version: 3
+  sorting_groups:
+  - id: sorting_group_lights
+    name: Lights
+    sorting_weight: 1
+  - id: sorting_group_fans
+    name: Fans
+    sorting_weight: 2
+  - id: sorting_group_misc
+    name: Misc
+    sorting_weight: 3
+  - id: sorting_group_sensors
+    name: Sensors
+    sorting_weight: 4
 
 switch:
 - platform: gpio
@@ -38,24 +51,35 @@ switch:
   name: "Office Light"
   id: office_light
   restore_mode: RESTORE_DEFAULT_OFF
+  web_server:
+    sorting_group_id: sorting_group_lights
+    sorting_weight: 1
 - platform: gpio
   pin:
     number: GPIO17
     inverted: True
   name: "Workbench Light"
   restore_mode: RESTORE_DEFAULT_OFF
+  web_server:
+    sorting_group_id: sorting_group_lights
+    sorting_weight: 2
 - platform: gpio
   pin:
     number: GPIO16
     inverted: True
   name: "Bathroom Light"
   restore_mode: RESTORE_DEFAULT_OFF
+  web_server:
+    sorting_group_id: sorting_group_lights
+    sorting_weight: 3
 - platform: gpio
   pin:
     number: GPIO4
     inverted: True
   name: "Socket"
   restore_mode: RESTORE_DEFAULT_OFF
+  web_server:
+    sorting_group_id: sorting_group_misc
 - platform: gpio
   pin:
     number: GPIO23
@@ -80,6 +104,13 @@ switch:
     inverted: True
   id: fan_speed_4
   restore_mode: RESTORE_DEFAULT_OFF
+- platform: template
+  name: "Office Fan Switch"
+  optimistic: true
+  restore_mode: RESTORE_DEFAULT_OFF
+  web_server:
+    sorting_group_id: sorting_group_fans
+    sorting_weight: 1
 
 sensor:
 - platform: dht
@@ -88,10 +119,16 @@ sensor:
     name: "Office Temperature"
     filters:
     - filter_out: nan
+    web_server:
+      sorting_group_id: sorting_group_sensors
+      sorting_weight: 1
   humidity:
     name: "Office Humidity"
     filters:
     - filter_out: nan
+    web_server:
+      sorting_group_id: sorting_group_sensors
+      sorting_weight: 2
   model: DHT11
   update_interval: 60s
 
@@ -209,6 +246,9 @@ number:
   restore_value: True
   device_class: speed
   mode: SLIDER
+  web_server:
+    sorting_group_id: sorting_group_fans
+    sorting_weight: 2
   on_value:
     then:
     - if:

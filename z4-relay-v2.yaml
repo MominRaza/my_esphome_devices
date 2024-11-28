@@ -32,15 +32,11 @@ web_server:
 
 switch:
 - platform: gpio
-  pin: GPIO2
-  name: "USER LED"
-  id: user_led
-  restore_mode: RESTORE_DEFAULT_OFF
-- platform: gpio
   pin:
     number: GPIO5
     inverted: True
   name: "Office Light"
+  id: office_light
   restore_mode: RESTORE_DEFAULT_OFF
 - platform: gpio
   pin:
@@ -108,9 +104,9 @@ binary_sensor:
     then:
       if:
         condition:
-          switch.is_off: user_led
+          switch.is_off: office_light
         then:
-        - switch.turn_on: user_led
+        - switch.turn_on: office_light
         - script.stop: turn_off_led_timer
         else:
         - script.stop: turn_off_led_timer
@@ -197,10 +193,10 @@ script:
   then:
     if:
       condition:
-        switch.is_on: user_led
+        switch.is_on: office_light
       then:
-      - delay: 10s
-      - switch.turn_off: user_led
+      - delay: 120s
+      - switch.turn_off: office_light
 
 number:
 - platform: template

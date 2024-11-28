@@ -38,6 +38,30 @@ switch:
   restore_mode: RESTORE_DEFAULT_OFF
 - platform: gpio
   pin:
+    number: GPIO5
+    inverted: True
+  name: "Office Light"
+  restore_mode: RESTORE_DEFAULT_OFF
+- platform: gpio
+  pin:
+    number: GPIO17
+    inverted: True
+  name: "Workbench Light"
+  restore_mode: RESTORE_DEFAULT_OFF
+- platform: gpio
+  pin:
+    number: GPIO16
+    inverted: True
+  name: "Bathroom Light"
+  restore_mode: RESTORE_DEFAULT_OFF
+- platform: gpio
+  pin:
+    number: GPIO4
+    inverted: True
+  name: "Socket"
+  restore_mode: RESTORE_DEFAULT_OFF
+- platform: gpio
+  pin:
     number: GPIO23
     inverted: True
   id: fan_speed_1
@@ -78,7 +102,7 @@ sensor:
 binary_sensor:
 - platform: gpio
   pin: GPIO25
-  name: "Office Door"
+  id: motion_sensor
   device_class: motion
   on_press:
     then:
@@ -104,7 +128,7 @@ binary_sensor:
       input: True
       pullup: True
     inverted: True
-  name: "Fan Speed 1 Button"
+  id: fan_speed_rotary_1
   filters:
   - delayed_on_off: 100ms
   on_press:
@@ -124,7 +148,7 @@ binary_sensor:
       input: True
       pullup: True
     inverted: True
-  name: "Fan Speed 2 Button"
+  id: fan_speed_rotary_2
   filters:
   - delayed_on_off: 100ms
   on_press:
@@ -139,7 +163,7 @@ binary_sensor:
       input: True
       pullup: True
     inverted: True
-  name: "Fan Speed 3 Button"
+  id: fan_speed_rotary_3
   filters:
   - delayed_on_off: 100ms
   on_press:
@@ -154,7 +178,7 @@ binary_sensor:
       input: True
       pullup: True
     inverted: True
-  name: "Fan Speed 4 Button"
+  id: fan_speed_rotary_4
   filters:
   - delayed_on_off: 100ms
   on_press:

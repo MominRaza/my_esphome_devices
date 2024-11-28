@@ -14,6 +14,8 @@ wifi:
   ap:
     password: !secret ap_password
 
+captive_portal:
+
 logger:
 
 ota:
@@ -25,6 +27,7 @@ web_server:
   auth:
     username: !secret web_server_username
     password: !secret web_server_password
+  ota: false
   version: 3
 
 switch:
@@ -33,6 +36,20 @@ switch:
     name: "USER LED"
     id: user_led
     restore_mode: RESTORE_DEFAULT_OFF
+
+sensor:
+  - platform: dht
+    pin: GPIO18
+    temperature:
+      name: "Office Temperature"
+      filters:
+        - filter_out: nan
+    humidity:
+      name: "Office Humidity"
+      filters:
+        - filter_out: nan
+    model: DHT11
+    update_interval: 60s
 
 binary_sensor:
   - platform: gpio

@@ -119,18 +119,10 @@ switch:
     sorting_weight: 1
   on_turn_on:
     then:
-    - if:
-        condition:
-          lambda: return (id(fan_speed).state == 0);
-        then:
-        - number.set:
-            id: fan_speed
-            value: 4
-        else:
-        - script.execute: change_fan_speed
+    - script.execute: change_fan_speed
   on_turn_off:
     then:
-    - script.execute: change_fan_speed
+    - script.execute: change_fan_speed  
 
 sensor:
 - platform: dht

@@ -17,7 +17,6 @@ wifi:
 captive_portal:
 
 logger:
-  level: INFO
 
 ota:
   platform: esphome

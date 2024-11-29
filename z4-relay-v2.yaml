@@ -86,25 +86,25 @@ switch:
 
 - platform: gpio
   pin:
-    number: GPIO23
+    number: GPIO19
     inverted: True
   id: fan_speed_1
   restore_mode: RESTORE_DEFAULT_OFF
 - platform: gpio
   pin:
-    number: GPIO22
+    number: GPIO21
     inverted: True
   id: fan_speed_2
   restore_mode: RESTORE_DEFAULT_OFF
 - platform: gpio
   pin:
-    number: GPIO21
+    number: GPIO22
     inverted: True
   id: fan_speed_3
   restore_mode: RESTORE_DEFAULT_OFF
 - platform: gpio
   pin:
-    number: GPIO19
+    number: GPIO23
     inverted: True
   id: fan_speed_4
   restore_mode: RESTORE_DEFAULT_OFF
@@ -394,10 +394,10 @@ number:
 
 # Pin mapping
 
-# GPIO23 - D23 - Fan Speed 1
-# GPIO22 - D22 - Fan Speed 2
-# GPIO21 - D21 - Fan Speed 3
-# GPIO19 - D19 - Fan Speed 4
+# GPIO19 - D19 - Fan Speed 1
+# GPIO21 - D21 - Fan Speed 2
+# GPIO22 - D22 - Fan Speed 3
+# GPIO23 - D23 - Fan Speed 4
 
 # GPIO18 - D18 - DHT11
 

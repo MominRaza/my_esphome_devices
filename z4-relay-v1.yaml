@@ -34,10 +34,13 @@ web_server:
       name: MIsc
       sorting_weight: 2
 
+udp:
+
 switch:
   - platform: gpio
     pin: GPIO23
     name: "Accenture Laptop Charger"
+  id: accenture_laptop_charger
     restore_mode: RESTORE_DEFAULT_ON
     web_server:
       sorting_group_id: sorting_group_chargers
@@ -45,6 +48,7 @@ switch:
   - platform: gpio
     pin: GPIO22
     name: "MSI Laptop Charger"
+  id: msi_laptop_charger
     restore_mode: RESTORE_DEFAULT_ON
     web_server:
       sorting_group_id: sorting_group_chargers
@@ -52,13 +56,45 @@ switch:
   - platform: gpio
     pin: GPIO21
     name: "Mosquito Killer"
+  id: mosquito_killer
     restore_mode: RESTORE_DEFAULT_ON
     web_server:
       sorting_group_id: sorting_group_misc
   - platform: gpio
     pin: GPIO19
     name: "JCI Laptop Charger"
+  id: jci_laptop_charger
     restore_mode: RESTORE_DEFAULT_ON
     web_server:
       sorting_group_id: sorting_group_chargers
       sorting_weight: 1
+
+binary_sensor:
+- platform: udp
+  provider: z4-relay-v2
+  id: accenture_laptop_charger_sensor
+  on_press:
+    switch.turn_on: accenture_laptop_charger
+  on_release:
+    switch.turn_off: accenture_laptop_charger
+- platform: udp
+  provider: z4-relay-v2
+  id: msi_laptop_charger_sensor
+  on_press:
+    switch.turn_on: msi_laptop_charger
+  on_release:
+    switch.turn_off: msi_laptop_charger
+- platform: udp
+  provider: z4-relay-v2
+  id: mosquito_killer_sensor
+  on_press:
+    switch.turn_on: mosquito_killer
+  on_release:
+    switch.turn_off: mosquito_killer
+- platform: udp
+  provider: z4-relay-v2
+  id: jci_laptop_charger_sensor
+  on_press:
+    switch.turn_on: jci_laptop_charger
+  on_release:
+    switch.turn_off: jci_laptop_charger

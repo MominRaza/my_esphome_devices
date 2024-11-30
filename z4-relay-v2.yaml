@@ -33,15 +33,25 @@ web_server:
   - id: sorting_group_lights
     name: Lights
     sorting_weight: 1
+  - id: sorting_group_chargers
+    name: Laptop Chargers
+    sorting_weight: 2
   - id: sorting_group_fans
     name: Fans
-    sorting_weight: 2
+    sorting_weight: 3
   - id: sorting_group_misc
     name: Misc
-    sorting_weight: 3
+    sorting_weight: 4
   - id: sorting_group_sensors
     name: Sensors
-    sorting_weight: 4
+    sorting_weight: 5
+
+udp:
+  binary_sensors:
+  - accenture_laptop_charger_sensor
+  - msi_laptop_charger_sensor
+  - mosquito_killer_sensor
+  - jci_laptop_charger_sensor
 
 switch:
 - platform: gpio
@@ -78,11 +88,12 @@ switch:
   pin:
     number: GPIO4
     inverted: True
-  name: "Socket"
+  name: "Wall Socket"
   id: wall_socket
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
     sorting_group_id: sorting_group_misc
+    sorting_weight: 1
 
 - platform: gpio
   pin:
@@ -123,6 +134,39 @@ switch:
   on_turn_off:
     then:
     - script.execute: change_fan_speed  
+
+- platform: template
+  name: "Accenture Laptop Charger"
+  id: accenture_laptop_charger
+  optimistic: true
+  restore_mode: RESTORE_DEFAULT_ON
+  web_server:
+    sorting_group_id: sorting_group_chargers
+    sorting_weight: 2
+- platform: template
+  name: "MSI Laptop Charger"
+  id: msi_laptop_charger
+  optimistic: true
+  restore_mode: RESTORE_DEFAULT_ON
+  web_server:
+    sorting_group_id: sorting_group_chargers
+    sorting_weight: 3
+- platform: template
+  name: "Mosquito Killer"
+  id: mosquito_killer
+  optimistic: true
+  restore_mode: RESTORE_DEFAULT_ON
+  web_server:
+    sorting_group_id: sorting_group_misc
+    sorting_weight: 2
+- platform: template
+  name: "JCI Laptop Charger"
+  id: jci_laptop_charger
+  optimistic: true
+  restore_mode: RESTORE_DEFAULT_ON
+  web_server:
+    sorting_group_id: sorting_group_chargers
+    sorting_weight: 1
 
 sensor:
 - platform: dht
@@ -319,6 +363,19 @@ binary_sensor:
     - number.set:
         id: fan_speed
         value: 0
+
+- platform: template
+  id: accenture_laptop_charger_sensor
+  lambda: return id(accenture_laptop_charger).state;
+- platform: template
+  id: msi_laptop_charger_sensor
+  lambda: return id(msi_laptop_charger).state;
+- platform: template
+  id: mosquito_killer_sensor
+  lambda: return id(mosquito_killer).state;
+- platform: template
+  id: jci_laptop_charger_sensor
+  lambda: return id(jci_laptop_charger).state;
 
 script:
 - id: turn_off_led_timer

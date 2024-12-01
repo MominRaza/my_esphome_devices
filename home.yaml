@@ -8,7 +8,6 @@ esp32:
     type: arduino
 
 wifi:
-  use_address: z4-relay-v2.local
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 

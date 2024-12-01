@@ -175,6 +175,18 @@ switch:
     sorting_group_id: sorting_group_chargers
     sorting_weight: 1
 
+- platform: template
+  name: "Enable Motion Sensor"
+  id: enable_motion_sensor
+  icon: mdi:walk
+  optimistic: true
+  restore_mode: RESTORE_DEFAULT_ON
+  web_server:
+    sorting_group_id: sorting_group_sensors
+    sorting_weight: 3
+  on_turn_off: 
+    script.stop: turn_off_led_timer
+
 sensor:
 - platform: dht
   pin: GPIO18
@@ -202,6 +214,13 @@ binary_sensor:
   pin: GPIO26
   id: motion_sensor
   device_class: motion
+  filters:
+  - lambda: |-
+      if (id(enable_motion_sensor).state) {
+        return x;
+      } else {
+        return {};
+      }
   on_press:
     if:
       condition:

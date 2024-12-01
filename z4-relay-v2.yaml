@@ -456,21 +456,42 @@ time:
   id: sntp_time
   timezone: Asia/Kolkata
   on_time: 
-  - hours: 23
-    minutes: 0
-    seconds: 0
-    then:
-    - switch.turn_off: enable_motion_sensor
   - hours: 6
     minutes: 0
     seconds: 0
     then:
     - switch.turn_on: enable_motion_sensor
+  - hours: 10
+    minutes: 0
+    seconds: 0
+    then:
+    - switch.turn_on: wall_socket
+  - days_of_week: MON-FRI
+    hours: 10
+    minutes: 0
+    seconds: 0
+    then:
+    - switch.turn_on: jci_laptop_charger
+    - switch.turn_on: accenture_laptop_charger
+  - days_of_week: SAT-SUN
+    hours: 10
+    minutes: 0
+    seconds: 0
+    then:
+    - switch.turn_on: msi_laptop_charger
   - hours: 19
     minutes: 0
     seconds: 0
     then:
     - switch.turn_on: mosquito_killer
+    - switch.turn_off: jci_laptop_charger
+    - switch.turn_off: accenture_laptop_charger
+  - hours: 23
+    minutes: 0
+    seconds: 0
+    then:
+    - switch.turn_off: enable_motion_sensor
+
 # Pin mapping
 
 # GPIO19 - D19 - Fan Speed 1

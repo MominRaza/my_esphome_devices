@@ -60,6 +60,7 @@ switch:
     inverted: True
   name: "Office Light"
   id: office_light
+  icon: mdi:lightbulb
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
     sorting_group_id: sorting_group_lights
@@ -70,6 +71,7 @@ switch:
     inverted: True
   name: "Workbench Light"
   id: workbench_light
+  icon: mdi:lightbulb
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
     sorting_group_id: sorting_group_lights
@@ -80,6 +82,7 @@ switch:
     inverted: True
   name: "Bathroom Light"
   id: bathroom_light
+  icon: mdi:lightbulb
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
     sorting_group_id: sorting_group_lights
@@ -90,6 +93,7 @@ switch:
     inverted: True
   name: "Wall Socket"
   id: wall_socket
+  icon: mdi:power-socket-uk
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
     sorting_group_id: sorting_group_misc
@@ -121,8 +125,9 @@ switch:
   restore_mode: RESTORE_DEFAULT_OFF
 
 - platform: template
-  name: "Office Fan Switch"
+  name: "Office Fan"
   id: office_fan
+  icon: mdi:fan
   optimistic: true
   restore_mode: RESTORE_DEFAULT_OFF
   web_server:
@@ -133,11 +138,12 @@ switch:
     - script.execute: change_fan_speed
   on_turn_off:
     then:
-    - script.execute: change_fan_speed  
+    - script.execute: change_fan_speed
 
 - platform: template
   name: "Accenture Laptop Charger"
   id: accenture_laptop_charger
+  icon: mdi:laptop
   optimistic: true
   restore_mode: RESTORE_DEFAULT_ON
   web_server:
@@ -146,6 +152,7 @@ switch:
 - platform: template
   name: "MSI Laptop Charger"
   id: msi_laptop_charger
+  icon: mdi:laptop-account
   optimistic: true
   restore_mode: RESTORE_DEFAULT_ON
   web_server:
@@ -154,6 +161,7 @@ switch:
 - platform: template
   name: "Mosquito Killer"
   id: mosquito_killer
+  icon: mdi:bug
   optimistic: true
   restore_mode: RESTORE_DEFAULT_ON
   web_server:
@@ -162,6 +170,7 @@ switch:
 - platform: template
   name: "JCI Laptop Charger"
   id: jci_laptop_charger
+  icon: mdi:laptop
   optimistic: true
   restore_mode: RESTORE_DEFAULT_ON
   web_server:
@@ -173,6 +182,7 @@ sensor:
   pin: GPIO18
   temperature:
     name: "Office Temperature"
+    icon: mdi:thermometer
     filters:
     - filter_out: nan
     web_server:
@@ -180,6 +190,7 @@ sensor:
       sorting_weight: 1
   humidity:
     name: "Office Humidity"
+    icon: mdi:water-percent
     filters:
     - filter_out: nan
     web_server:
@@ -427,6 +438,7 @@ number:
 - platform: template
   name: "Office Fan Speed"
   id: fan_speed
+  icon: mdi:fan-clock
   min_value: 0
   max_value: 4
   step: 1

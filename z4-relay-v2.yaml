@@ -165,6 +165,9 @@ switch:
   web_server:
     sorting_group_id: sorting_group_misc
     sorting_weight: 2
+  on_turn_on: 
+    - delay: 30min
+    - switch.turn_off: mosquito_killer
 - platform: template
   name: "JCI Laptop Charger"
   id: jci_laptop_charger
@@ -451,6 +454,26 @@ number:
   on_value:
     script.execute: change_fan_speed
 
+time:
+- platform: sntp
+  id: sntp_time
+  timezone: Asia/Kolkata
+  on_time: 
+  - hours: 23
+    minutes: 0
+    seconds: 0
+    then:
+    - switch.turn_off: enable_motion_sensor
+  - hours: 6
+    minutes: 0
+    seconds: 0
+    then:
+    - switch.turn_on: enable_motion_sensor
+  - hours: 19
+    minutes: 0
+    seconds: 0
+    then:
+    - switch.turn_on: mosquito_killer
 # Pin mapping
 
 # GPIO19 - D19 - Fan Speed 1

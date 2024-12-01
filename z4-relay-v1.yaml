@@ -39,28 +39,28 @@ switch:
 
 binary_sensor:
 - platform: udp
-  provider: z4-relay-v2
+  provider: home
   id: accenture_laptop_charger_sensor
   on_press:
     switch.turn_on: accenture_laptop_charger
   on_release:
     switch.turn_off: accenture_laptop_charger
 - platform: udp
-  provider: z4-relay-v2
+  provider: home
   id: msi_laptop_charger_sensor
   on_press:
     switch.turn_on: msi_laptop_charger
   on_release:
     switch.turn_off: msi_laptop_charger
 - platform: udp
-  provider: z4-relay-v2
+  provider: home
   id: mosquito_killer_sensor
   on_press:
     switch.turn_on: mosquito_killer
   on_release:
     switch.turn_off: mosquito_killer
 - platform: udp
-  provider: z4-relay-v2
+  provider: home
   id: jci_laptop_charger_sensor
   on_press:
     switch.turn_on: jci_laptop_charger

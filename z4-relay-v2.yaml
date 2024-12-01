@@ -134,11 +134,9 @@ switch:
     sorting_group_id: sorting_group_fans
     sorting_weight: 1
   on_turn_on:
-    then:
-    - script.execute: change_fan_speed
+    script.execute: change_fan_speed
   on_turn_off:
-    then:
-    - script.execute: change_fan_speed
+    script.execute: change_fan_speed
 
 - platform: template
   name: "Accenture Laptop Charger"
@@ -205,22 +203,20 @@ binary_sensor:
   id: motion_sensor
   device_class: motion
   on_press:
-    then:
-      if:
-        condition:
-          switch.is_off: office_light
-        then:
-        - switch.turn_on: office_light
-        - script.stop: turn_off_led_timer
-        else:
-        - script.stop: turn_off_led_timer
+    if:
+      condition:
+        switch.is_off: office_light
+      then:
+      - switch.turn_on: office_light
+      - script.stop: turn_off_led_timer
+      else:
+      - script.stop: turn_off_led_timer
   on_release:
-    then:
-      if:
-        condition:
-          script.is_running: turn_off_led_timer
-        else:
-        - script.execute: turn_off_led_timer
+    if:
+      condition:
+        script.is_running: turn_off_led_timer
+      else:
+      - script.execute: turn_off_led_timer
 
 - platform: gpio
   pin:
@@ -233,11 +229,9 @@ binary_sensor:
   filters:
   - delayed_on_off: 100ms
   on_press:
-    then:
-    - switch.turn_on: office_light
+    switch.turn_on: office_light
   on_release:
-    then:
-    - switch.turn_off: office_light
+    switch.turn_off: office_light
 - platform: gpio
   pin:
     number: GPIO35
@@ -249,11 +243,9 @@ binary_sensor:
   filters:
   - delayed_on_off: 100ms
   on_press:
-    then:
-    - switch.turn_on: workbench_light
+    switch.turn_on: workbench_light
   on_release:
-    then:
-    - switch.turn_off: workbench_light
+    switch.turn_off: workbench_light
 - platform: gpio
   pin:
     number: GPIO32
@@ -265,11 +257,9 @@ binary_sensor:
   filters:
   - delayed_on_off: 100ms
   on_press:
-    then:
-    - switch.turn_on: bathroom_light
+    switch.turn_on: bathroom_light
   on_release:
-    then:
-    - switch.turn_off: bathroom_light
+    switch.turn_off: bathroom_light
 - platform: gpio
   pin:
     number: GPIO33
@@ -281,11 +271,9 @@ binary_sensor:
   filters:
   - delayed_on_off: 100ms
   on_press:
-    then:
-    - switch.turn_on: wall_socket
+    switch.turn_on: wall_socket
   on_release:
-    then:
-    - switch.turn_off: wall_socket
+    switch.turn_off: wall_socket
 
 - platform: gpio
   pin:
@@ -298,11 +286,9 @@ binary_sensor:
   filters:
   - delayed_on_off: 100ms
   on_press:
-    then:
-    - switch.turn_on: office_fan
+    switch.turn_on: office_fan
   on_release:
-    then:
-    - switch.turn_off: office_fan
+    switch.turn_off: office_fan
 
 - platform: gpio
   pin:
@@ -315,15 +301,13 @@ binary_sensor:
   filters:
   - delayed_on_off: 100ms
   on_press:
-    then:
-    - number.set:
-        id: fan_speed
-        value: 1
+    number.set:
+      id: fan_speed
+      value: 1
   on_release:
-    then:
-    - number.set:
-        id: fan_speed
-        value: 0
+    number.set:
+      id: fan_speed
+      value: 0
 - platform: gpio
   pin:
     number: GPIO14
@@ -335,10 +319,9 @@ binary_sensor:
   filters:
   - delayed_on_off: 100ms
   on_press:
-    then:
-    - number.set:
-        id: fan_speed
-        value: 2
+    number.set:
+      id: fan_speed
+      value: 2
 - platform: gpio
   pin:
     number: GPIO12
@@ -350,10 +333,9 @@ binary_sensor:
   filters:
   - delayed_on_off: 100ms
   on_press:
-    then:
-    - number.set:
-        id: fan_speed
-        value: 3
+    number.set:
+      id: fan_speed
+      value: 3
 - platform: gpio
   pin:
     number: GPIO13
@@ -365,15 +347,13 @@ binary_sensor:
   filters:
   - delayed_on_off: 100ms
   on_press:
-    then:
-    - number.set:
-        id: fan_speed
-        value: 4
+    number.set:
+      id: fan_speed
+      value: 4
   on_release:
-    then:
-    - number.set:
-        id: fan_speed
-        value: 0
+    number.set:
+      id: fan_speed
+      value: 0
 
 - platform: template
   id: accenture_laptop_charger_sensor
@@ -450,8 +430,7 @@ number:
     sorting_group_id: sorting_group_fans
     sorting_weight: 2
   on_value:
-    then:
-    - script.execute: change_fan_speed
+    script.execute: change_fan_speed
 
 # Pin mapping
 
